@@ -5,13 +5,14 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/test-task-SaaSoft/',
   plugins: [vue(), vueJsx()],
   define: {
     'process.env.MY_ENV_VAR': JSON.stringify(process.env.MY_ENV_VAR),
   },
   build: {
     outDir: 'dist',
-    minify: 'terser',
+    minify: 'esbuild',
     rollupOptions: {
       input: {
         main: 'index.html',

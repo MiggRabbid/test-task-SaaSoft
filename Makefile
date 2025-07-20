@@ -16,7 +16,11 @@ tc:
 	npm run type-check
 
 d:
-	npm  run dev
+	npm run dev
+
+	
+gh:
+	npm run deploy
 
 b:
 	rm -rf dist
