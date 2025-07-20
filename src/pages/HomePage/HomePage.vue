@@ -12,8 +12,17 @@
       `;`
     </p>
   </div>
+
+  <n-space size="large" class="px-5! py-3!">
+    <CustomList>
+      <AccountItem />
+      <AccountItem />
+    </CustomList>
+  </n-space>
 </template>
 
 <script setup lang="ts">
 import QuestionMarkRound from '../../assets/svg/icons/QuestionMarkRound.vue';
+import CustomList from '../../shared/components/CustomList/CustomList.vue';
+import AccountItem from '../../features/AccountItem/AccountItem.vue';
 </script>
