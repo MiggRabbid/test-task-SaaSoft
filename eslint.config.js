@@ -34,10 +34,10 @@ export default defineConfigWithVueTs(
         ecmaVersion: 2021,
         sourceType: 'module',
         extraFileExtensions: ['.vue'],
-        globals: {
-          ...globals.browser,
-          NodeJS: true,
-        },
+
+      }, globals: {
+        ...globals.browser,
+        NodeJS: true,
       },
     },
     plugins: {
