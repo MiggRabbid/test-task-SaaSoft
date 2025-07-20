@@ -76,7 +76,7 @@ const emit = defineEmits<{
   (e: 'update', acc: IAccountListItem): void;
 }>();
 
-const local = reactive<IAccountListItem>({
+const local: IAccountListItem = reactive<IAccountListItem>({
   ...toRaw({
     ...props.account,
     labels: getLabelStr(props.account.labels),
@@ -94,7 +94,7 @@ const validateDataAndSave = () => {
     errors = true;
   }
 
-  if (local.type === TypeRecord.LOCAL && !local.password.length) {
+  if (local.type === TypeRecord.LOCAL && !local.password?.length) {
     local.errors.password = true;
     errors = true;
   }

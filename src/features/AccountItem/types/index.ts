@@ -20,5 +20,5 @@ export interface IAccount {
 }
 
 export interface IAccountListItem extends Omit<IAccount, 'labels'> {
-  login: string;
+  labels: string;
 }
