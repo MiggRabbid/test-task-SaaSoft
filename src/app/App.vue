@@ -1,6 +1,6 @@
 <template>
   <n-config-provider>
-    <home-page />
+    <HomePage />
   </n-config-provider>
 </template>
 
