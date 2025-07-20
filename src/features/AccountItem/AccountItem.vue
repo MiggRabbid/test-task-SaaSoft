@@ -1,28 +1,25 @@
 <template>
   <n-space align="start">
-    <n-input placeholder="Метка" :maxlength="50" style="width: 200px" />
+    <CustomInput type="text" placeholder="Введите метки" modelValue="" maxlength="100" />
 
-    <n-select
-      :options="[
-        { label: 'Локальная', value: 'Локальная' },
-        { label: 'LDAP', value: 'LDAP' },
-      ]"
-      style="width: 200px"
-      placeholder="Выберете тип записи"
-    />
+    <n-select :options="options" style="width: 200px" placeholder="Выберете тип" />
 
-    <n-input placeholder="Логин" :maxlength="100" style="width: 200px" />
+    <CustomInput type="text" placeholder="Логин" modelValue="" maxlength="100" />
 
     <template v-if="true">
-      <n-input
+      <CustomInput
         type="password"
         placeholder="Пароль"
-        :maxlength="100"
-        style="width: 200px"
+        modelValue=""
+        minlength="4"
+        maxlength="200"
         show-password-on="mousedown"
       />
     </template>
   </n-space>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { options } from './config/constants.ts';
+import { CustomInput } from '../../shared/ui/CustomInput';
+</script>

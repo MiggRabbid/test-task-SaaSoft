@@ -17,12 +17,15 @@
     <CustomList>
       <AccountItem />
       <AccountItem />
+      <AccountItem />
+      <AccountItem />
+      <AccountItem />
     </CustomList>
   </n-space>
 </template>
 
 <script setup lang="ts">
-import QuestionMarkRound from '../../assets/svg/icons/QuestionMarkRound.vue';
-import CustomList from '../../shared/components/CustomList/CustomList.vue';
-import AccountItem from '../../features/AccountItem/AccountItem.vue';
+import { QuestionMarkRound } from '../../assets/svg/icons';
+import { CustomList } from '../../shared/components/CustomList';
+import { AccountItem } from '../../features/AccountItem';
 </script>

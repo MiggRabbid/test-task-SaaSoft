@@ -5,5 +5,5 @@
 </template>
 
 <script setup lang="ts">
-import HomePage from '../pages/HomePage/HomePage.vue';
+import { HomePage } from '../pages/HomePage';
 </script>
