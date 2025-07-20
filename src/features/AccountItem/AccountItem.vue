@@ -71,7 +71,6 @@ const store = useAccountsStore();
 const props = defineProps<{ account: IAccount }>();
 
 const emit = defineEmits<{
-  // eslint-disable-next-line no-unused-vars
   (e: 'update', acc: IAccountListItem): void;
 }>();
 
