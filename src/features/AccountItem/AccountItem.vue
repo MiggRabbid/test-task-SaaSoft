@@ -84,6 +84,7 @@ const local: IAccountListItem = reactive<IAccountListItem>({
 });
 
 const validateDataAndSave = () => {
+  /* Тут также желательна валидация по "левые" символы/знаки */
   let errors = false;
 
   local.errors.login = false;
