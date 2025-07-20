@@ -28,8 +28,6 @@ const props = defineProps<{
   onBlur?: () => void;
 }>();
 
-console.log(props.multiRow);
-
 const customClass = props.multiRow && props.type === 'textarea' ? 'h-fit' : undefined;
 
 const localError = computed(() => props.error);

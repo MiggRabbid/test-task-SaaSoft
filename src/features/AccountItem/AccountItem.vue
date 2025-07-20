@@ -27,7 +27,6 @@
         v-model:value="local.login"
         type="text"
         placeholder="Логин"
-        :modelValue="local.login"
         :error="local.errors.login"
         :maxlength="100"
         :onBlur="handelOnBlurInput"
@@ -84,7 +83,9 @@ const local: IAccountListItem = reactive<IAccountListItem>({
 });
 
 const validateDataAndSave = () => {
-  /* Тут также желательна валидация по "левые" символы/знаки */
+  /* Тут также желательна валидация по "левые" символы/знаки
+   * И лучше валидация через тот же ZOD
+   */
   let errors = false;
 
   local.errors.login = false;
