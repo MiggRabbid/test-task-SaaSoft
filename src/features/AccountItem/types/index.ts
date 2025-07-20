@@ -1,4 +1,4 @@
-export interface Label {
+export interface ILabel {
   text: string;
 }
 
@@ -7,14 +7,18 @@ export enum TypeRecord {
   'LOCAL' = 'Локальная',
 }
 
-export interface Account {
+export interface IAccount {
   id: string;
-  labels: Label[];
+  labels: ILabel[];
   type: TypeRecord;
   login: string;
   password: string | null;
   errors: {
-    login?: string;
-    password?: string;
+    login: boolean;
+    password: boolean;
   };
+}
+
+export interface IAccountListItem extends Omit<IAccount, 'labels'> {
+  login: string;
 }

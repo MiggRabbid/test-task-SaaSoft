@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import { onMounted, computed } from 'vue';
+
 import { CustomHeader } from './components/CustomHeader';
 import { CustomNotes } from './components/CustomNotes';
 import { CustomList } from '../../shared/components/CustomList';

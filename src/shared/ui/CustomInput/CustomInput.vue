@@ -7,7 +7,6 @@
     :minlength="maxlength"
     :maxlength="maxlength"
     :show-password-on="showPasswordOn"
-    :value="modelValue"
     :autosize="
       multiRow
         ? {
@@ -17,25 +16,42 @@
         : undefined
     "
     style="width: 100%"
-    @update:value="emit('update:modelValue', $event)"
+    :status="localError ? 'error' : ''"
+    @update:value="(value) => emit('update:modelValue', value)"
+    @blur="props.onBlur?.()"
   />
 </template>
 
 <script setup lang="ts">
-import { NInput } from 'naive-ui';
+import { ref, watch, computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
   multiRow?: boolean;
-  modelValue: string;
   placeholder?: string;
   type?: 'text' | 'password';
   minlength?: number;
   maxlength?: number;
   showPasswordOn?: 'click' | 'mousedown';
+  error?: boolean;
+  onBlur?: () => void;
 }>();
 
 const emit = defineEmits<{
   // eslint-disable-next-line no-unused-vars
   (e: 'update:modelValue', value: string): void;
 }>();
+
+const localValue = ref(props.modelValue);
+const localError = computed(() => props.error);
+
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    localValue.value = newVal;
+  },
+);
+
+watch(localValue, (val) => {
+  emit('update:modelValue', val);
+});
 </script>
