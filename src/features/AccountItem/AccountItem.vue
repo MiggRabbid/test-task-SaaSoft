@@ -3,10 +3,11 @@
     <div class="flex w-110 gap-4">
       <CustomInput
         v-model:value="local.labels"
-        type="text"
+        class="w-53!"
+        type="textarea"
         placeholder="Введите метки"
         :maxlength="50"
-        multiRow
+        :multiRow="true"
         :onBlur="handelOnBlurLabels"
       />
       <!-- По хорошему, нужно тоже вынести в отдельный компонент -->
@@ -16,7 +17,7 @@
         size="large"
         style="width: 200px !important"
         placeholder="Выберете тип"
-        class="shrink-0!"
+        class="w-53! shrink-0!"
         @update:value="handelTypeChange"
       />
     </div>
@@ -39,7 +40,6 @@
           placeholder="Пароль"
           :error="local.errors.password"
           :maxlength="100"
-          width="200px"
           showPasswordOn="mousedown"
           :onBlur="handelOnBlurInput"
         />
