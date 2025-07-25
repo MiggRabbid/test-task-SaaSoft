@@ -10,17 +10,15 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, computed } from 'vue';
+import { computed } from 'vue';
+
+import { useAccountsStore } from '../../features/AccountItem/store/useAccountsStore';
 
 import { CustomHeader } from './components/CustomHeader';
 import { CustomNotes } from './components/CustomNotes';
 import { CustomList } from '../../shared/components/CustomList';
 import { AccountItem } from '../../features/AccountItem';
 
-import { useAccountsStore } from '../../features/AccountItem/store/useAccountsStore';
-
 const store = useAccountsStore();
 const accounts = computed(() => store.list);
-
-onMounted(() => store.load());
 </script>

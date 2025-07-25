@@ -10,6 +10,7 @@
         :multiRow="true"
         :onBlur="handelOnBlurLabels"
       />
+
       <!-- По хорошему, нужно тоже вынести в отдельный компонент -->
       <n-select
         v-model:value="local.type"
@@ -52,68 +53,60 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, toRaw } from 'vue';
-import { defineProps, defineEmits, watch } from 'vue';
+import { reactive, defineProps, defineEmits, watch } from 'vue';
 
+import { useAccountValidation } from '@/hooks';
 import { getLabelStr } from './utils/getLabelStr.ts';
 import { getLabelsArr } from './utils/getLabelsArr.ts';
 import { options } from './config/constants.ts';
-
-import { CustomInput } from '../../shared/ui/CustomInput';
-import { DeleteForeverRound } from '../../assets/svg/icons';
 import { useAccountsStore } from '../../features/AccountItem/store/useAccountsStore';
 
-import { TypeRecord } from './types/index.ts';
-import type { IAccount, IAccountListItem } from './types/index.ts';
+import { CustomInput } from '@/shared/ui/CustomInput';
+import { DeleteForeverRound } from '@/assets/svg/icons';
+
+import { TypeRecord } from './types';
+import type { IAccount, IAccountListItem } from './types';
 
 const store = useAccountsStore();
 
 const props = defineProps<{ account: IAccount }>();
 
 const emit = defineEmits<{
-  (e: 'update', acc: IAccountListItem): void;
+  (e: 'update', acc: IAccount): void;
 }>();
 
-const local: IAccountListItem = reactive<IAccountListItem>({
-  ...toRaw({
-    ...props.account,
-    labels: getLabelStr(props.account.labels),
-  }),
+const local = reactive<IAccountListItem>({
+  id: props.account.id,
+  labels: getLabelStr(props.account.labels),
+  type: props.account.type,
+  login: props.account.login,
+  password: props.account.password,
+  errors: { login: false, password: false },
 });
 
-const validateDataAndSave = () => {
-  /* Тут также желательна валидация по "левые" символы/знаки
-   * И лучше валидация через тот же ZOD
-   */
-  let errors = false;
+const errors = reactive(local.errors);
 
-  local.errors.login = false;
-  local.errors.password = false;
+const saveAccountData = () => {
+  const result = useAccountValidation(local);
+  errors.login = result.errors.login;
+  errors.password = result.errors.password;
 
-  if (!local.login.length) {
-    local.errors.login = true;
-    errors = true;
-  }
-
-  if (local.type === TypeRecord.LOCAL && !local.password?.length) {
-    local.errors.password = true;
-    errors = true;
-  }
-
-  emit('update', toRaw(local));
-
-  if (!errors) {
-    const prepareDataForStore: IAccount = {
-      ...local,
+  if (result.valid) {
+    const toStore: IAccount = {
+      id: local.id,
       labels: getLabelsArr(local.labels),
+      type: local.type,
+      login: local.login,
+      password: local.password,
     };
-    store.update(toRaw(prepareDataForStore));
+
+    store.update(toStore);
+    emit('update', toStore);
   }
 };
 
 const handelOnBlurLabels = () => {
-  emit('update', toRaw(local));
-  validateDataAndSave();
+  saveAccountData();
 };
 
 const handelTypeChange = () => {
@@ -125,13 +118,11 @@ const handelTypeChange = () => {
     local.password = '';
   }
 
-  emit('update', toRaw(local));
-  validateDataAndSave();
+  saveAccountData();
 };
 
 const handelOnBlurInput = () => {
-  emit('update', toRaw(local));
-  validateDataAndSave();
+  saveAccountData();
 };
 
 const handelDelete = () => {
@@ -140,14 +131,14 @@ const handelDelete = () => {
 
 watch(
   () => props.account,
-  (newVal) => {
-    Object.assign(
-      local,
-      toRaw({
-        ...newVal,
-        labels: getLabelStr(newVal.labels),
-      }),
-    );
+  (acc) => {
+    local.id = acc.id;
+    local.labels = getLabelStr(acc.labels);
+    local.type = acc.type;
+    local.login = acc.login;
+    local.password = acc.password;
+    errors.login = false;
+    errors.password = false;
   },
 );
 </script>

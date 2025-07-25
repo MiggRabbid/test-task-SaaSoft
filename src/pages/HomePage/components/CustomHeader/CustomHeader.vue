@@ -6,15 +6,15 @@
   >
     <div class="flex w-full items-center justify-between">
       <h1 class="grow-1 text-center text-xl font-semibold">Учётные записи</h1>
-      <n-button type="info" size="large" @click="add">Добавить</n-button>
+      <n-button type="info" size="large" @click="addNewAcc">Добавить</n-button>
     </div>
   </n-space>
 </template>
 
 <script setup lang="ts">
-import { useAccountsStore } from '../../../../features/AccountItem/store/useAccountsStore';
+import { useAccountsStore } from '@/features/AccountItem/store/useAccountsStore';
 
 const store = useAccountsStore();
 
-const add = () => store.add();
+const addNewAcc = () => store.add();
 </script>

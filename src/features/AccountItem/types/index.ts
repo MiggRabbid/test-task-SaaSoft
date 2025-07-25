@@ -13,12 +13,16 @@ export interface IAccount {
   type: TypeRecord;
   login: string;
   password: string | null;
+}
+
+export interface IAccountListItem {
+  id: string;
+  labels: string;
+  type: TypeRecord;
+  login: string;
+  password: string | null;
   errors: {
     login: boolean;
     password: boolean;
   };
-}
-
-export interface IAccountListItem extends Omit<IAccount, 'labels'> {
-  labels: string;
 }
